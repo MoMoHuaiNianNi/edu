@@ -1,12 +1,10 @@
 package com.edu.eduservice.controller;
 
 import com.edu.common.R;
+import com.edu.eduservice.entity.query.LoginUser;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -25,12 +23,30 @@ public class LoginController {
      * 讲师登录
      */
     @PostMapping("teacherLogin")
-    public R teacherLogin(@Param("username") String username, @Param("password") String password) {
-        if (!StringUtils.isEmpty(username) && !StringUtils.isEmpty(password)
-                && "admin".equals(username) && "admin".equals(password)) {
-            return R.ok();
+    public R teacherLogin(@RequestBody LoginUser loginUser) {
+        if (!StringUtils.isEmpty(loginUser.getUsername()) && !StringUtils.isEmpty(loginUser.getPassword())
+                && "admin".equals(loginUser.getUsername()) && "admin123".equals(loginUser.getPassword())) {
+            return R.ok().data("token", "admin");
         } else {
             return R.error();
         }
+    }
+
+    /**
+     * 讲师登录
+     */
+    @GetMapping("teacherInfo")
+    public R teacherInfo() {
+        return R.ok().data("roles", "[\"admin\"]")
+                .data("name", "admin")
+                .data("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+    }
+
+    /**
+     * 讲师登录
+     */
+    @PostMapping("teacherLogout")
+    public R teacherLogout() {
+        return R.ok();
     }
 }

@@ -22,7 +22,7 @@ import java.util.List;
  * @since 2020-02-18
  */
 @RestController
-@RequestMapping("/eduService/teacher/")
+@RequestMapping("/eduService/teacher")
 @CrossOrigin
 public class EduTeacherController {
     @Autowired
@@ -72,7 +72,11 @@ public class EduTeacherController {
         eduTeacherService.pageListCondition(teacherPage, queryTeacher);
         long total = teacherPage.getTotal();
         List<EduTeacher> records = teacherPage.getRecords();
-        return R.ok().data("total", total).data("items", records);
+        if (records != null) {
+            return R.ok().data("total", total).data("items", records);
+        } else {
+            return R.error();
+        }
     }
 
     /**
