@@ -1,32 +1,43 @@
-# ·şÎñ¶Ë¿Ú
+# æœåŠ¡ç«¯å£
 server:
   port: 8001
-  # ·şÎñÃû
+  # æœåŠ¡å
 
 spring:
   application:
     name: edu-eduservice
-  # »·¾³ÉèÖÃ£ºdev¡¢test¡¢prod
+  # ç¯å¢ƒè®¾ç½®ï¼šdevã€testã€prod
   profiles:
     active: dev
-  # mysqlÊı¾İ¿âÁ¬½Ó
+  # mysqlæ•°æ®åº“è¿æ¥
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://182.92.150.131:3306/xxjx_edu?serverTimezone=GMT%2B8
     username: root
     password: root
-  # ·µ»ØjsonµÄÈ«¾ÖÊ±¼ä¸ñÊ½
+  # è¿”å›jsonçš„å…¨å±€æ—¶é—´æ ¼å¼
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-  # ÈÈ²¿ÊğÅäÖÃ
+  # çƒ­éƒ¨ç½²é…ç½®
   devtools:
     restart:
       enabled: true
 
-# mybatisÈÕÖ¾
+# mybatisæ—¥å¿—
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:mapper/*.xml
+
+# è‡ªå®šä¹‰é…ç½®é˜¿é‡Œäº‘OSS
+aLiYun:
+  oss:
+    file:
+      endPoint: oss-cn-beijing.aliyuncs.com
+      keyId: LTAI4FoHRan3mQnF74xZ15PB
+      keySecret: NngMvehcffkz8AI3LV0RnlD5mPZG3A
+      # bucketå¯ä»¥åœ¨æ§åˆ¶å°åˆ›å»ºï¼Œä¹Ÿå¯ä»¥ä½¿ç”¨javaä»£ç åˆ›å»º
+      bucketName: musha
+      fileHost: avatar
 

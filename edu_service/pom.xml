@@ -67,7 +67,7 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
-        
+
         <!-- OSS Java SDK-->
         <dependency>
             <groupId>com.aliyun.oss</groupId>

@@ -4,12 +4,17 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.edu.common.R;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.edu.eduservice.handler.ConstantPropertiesUtil;
+import com.edu.eduservice.service.FileService;
+import com.edu.eduservice.utils.UUIDGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * <p>
@@ -23,27 +28,18 @@ import java.io.File;
 @RequestMapping("/FileUpload")
 @CrossOrigin
 public class FileUploadController {
+    @Autowired
+    private FileService fileService;
 
-    @PostMapping("/upload")
-    public R upload() {
-        // Endpoint以杭州为例，其它Region请按实际情况填写。
-        String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
-        String accessKeyId = "<yourAccessKeyId>";
-        String accessKeySecret = "<yourAccessKeySecret>";
 
-        // 创建OSSClient实例
-        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
-
-        // 创建PutObjectRequest对象
-        PutObjectRequest putObjectRequest = new PutObjectRequest("<yourBucketName>", "<yourObjectName>", new File("<yourLocalFile>"));
-
-        // 上传文件
-        ossClient.putObject(putObjectRequest);
-
-        // 关闭OSSClient。
-        ossClient.shutdown();
-
-        return R.ok();
+    @PostMapping("/imgUpload")
+    public R imgUpload(@RequestParam("file") MultipartFile file) {
+        String path = fileService.imgUpload(file);
+        if (!StringUtils.isEmpty(path)) {
+            return R.ok().data("imgUrl", path);
+        } else {
+            return R.error();
+        }
     }
 
 }
