@@ -9,6 +9,7 @@ import com.edu.eduservice.utils.UUIDGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -51,9 +52,10 @@ public class FileServiceImpl implements FileService {
             // 拼接文件的浏览路径
             String path = "http://" + bucketName + "." + endpoint + "/" + filePath;
             return path;
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return "";
         }
+
     }
 }
